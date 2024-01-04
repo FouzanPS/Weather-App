@@ -1,0 +1,20 @@
+<% if(temperature){ %>
+      <div class="top">
+          <div class="image">
+              <img src="https://openweathermap.org/img/w/03n.png">
+          </div>
+          <div class="text">
+              <h1 class="text-center"><B><%= temperature %></B></h1>
+              <p id="country" class="text-center"><b><%= city %></b></p>
+          </div>
+      </div>
+      <div class="infos">
+          <div class="infos-container text-center">
+              <h1>Description: <%= description %></h1>
+              <h1>Min: <%= minTemperature %></h1>
+              <h1>Max: <%= maxTemperature %></h1>
+              <h1>Pressure: <%= pressure %></h1>
+              <h1>Humidity: <%= humidity %></h1>
+          </div>
+      </div>
+    <% } %>
