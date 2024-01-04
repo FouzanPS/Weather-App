@@ -14,17 +14,23 @@ app.get('/', (req, res) =>{
     res.render('index.ejs');
 });
 
+function kelvinToCelsius(kelvin) {
+    return  kelvin - 273.15;
+}
+
 app.get('/weather', async (req, res) => {
     try {
         const place = req.query.place;
         const result = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${place}&appid=f639a87a41a0a73d788bc7c50ff92ada`);
         const image = `https://openweathermap.org/img/w/${result.data.weather[0].icon}.png`
+        
         res.render('client.ejs', {
-            temperature: result.data.main.temp,
+            temperature: Math.round(kelvinToCelsius(result.data.main.temp)),
             city: result.data.name,
+            lat: result.data.coord.lat,
+            lon: result.data.coord.lon,
             description: result.data.weather[0].description,
-            minTemperature: result.data.main.temp_min,
-            maxTemperature: result.data.main.temp_max,
+            wind: result.data.wind.speed,
             pressure: result.data.main.pressure,
             humidity: result.data.main.humidity,
             image: image
@@ -35,7 +41,7 @@ app.get('/weather', async (req, res) => {
         } else {
             console.error("Error without a response");
         }
-        res.status(500).send("Internal Server Error");
+        res.status(500).render('error.ejs');
     }
 });
 

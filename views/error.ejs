@@ -18,27 +18,11 @@
         <button class="button-33" type="submit" role="button">Search</button>
     </div>
   </form>
-  <div class="cube">
-    <div class="top">
-        <div class="image">
-            <img src= <%= image %>>
-        </div>
-        <div class="text">
-            <h1 class="text-center"><B><%= temperature %>°C</B></h1>
-            <p id="country" class="text-center"><b><%= city %></b></p>
-        </div>
+    <div class="cube">
+      <div class="infos">
+        <h1 style="font-family: 'Varela Round', sans-serif;"> Place not found❗️🙁</h1>
+      </div>
     </div>
-    <div class="infos">
-        <div class="infos-container text-center">
-            <h1><b>lat:</b> <%= lat %> | <b>lon:</b> <%= lon %></h1>
-            <h1><b>Climate:</b> <%= description %></h1>
-            <h1><b>Wind speed:</b> <%= wind %> m/s</h1>
-            <h1><b>Pressure:</b> <%= pressure %> <b>hPa</b></h1>
-            <h1><b>Humidity:</b> <%= humidity %><b>%</b></h1>
-        </div>
-    </div>
-  </div>
-    
     
 </body>
 </html>
