@@ -21,29 +21,34 @@ function kelvinToCelsius(kelvin) {
 app.get('/weather', async (req, res) => {
     try {
         const place = req.query.place;
-        const result = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${place}&appid=f639a87a41a0a73d788bc7c50ff92ada`);
-        const image = `https://openweathermap.org/img/w/${result.data.weather[0].icon}.png`
+        const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${place}&appid=f639a87a41a0a73d788bc7c50ff92ada`);
         
-        res.render('client.ejs', {
-            temperature: Math.round(kelvinToCelsius(result.data.main.temp)),
-            city: result.data.name,
-            lat: result.data.coord.lat,
-            lon: result.data.coord.lon,
-            description: result.data.weather[0].description,
-            wind: result.data.wind.speed,
-            pressure: result.data.main.pressure,
-            humidity: result.data.main.humidity,
-            image: image
-        });
-    } catch (error) {
-        if (error.response) {
-            console.error(error.response.data);
+        // Check for successful response status
+        if (response.status === 200) {
+            const result = response.data;
+            const image = `https://openweathermap.org/img/w/${result.weather[0].icon}.png`
+            
+            res.render('client.ejs', {
+                temperature: Math.round(kelvinToCelsius(result.main.temp)),
+                city: result.name,
+                lat: result.coord.lat,
+                lon: result.coord.lon,
+                description: result.weather[0].description,
+                wind: result.wind.speed,
+                pressure: result.main.pressure,
+                humidity: result.main.humidity,
+                image: image
+            });
         } else {
-            console.error("Error without a response");
+            console.error(`Error: ${response.status} - ${response.statusText}`);
+            res.status(response.status).render('error.ejs');
         }
+    } catch (error) {
+        console.error("Error:", error.message);
         res.status(500).render('error.ejs');
     }
 });
+
 
 
 app.listen(port, () => {
