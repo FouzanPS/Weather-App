@@ -14,8 +14,8 @@ This is a simple weather application that allows users to input a city name and 
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/yourusername/weather-app.git
-   cd weather-app
+   git clone https://github.com/FouzanPS/Weather-App.git
+   cd Weather-App
    ```
 
 2. Install dependencies:
